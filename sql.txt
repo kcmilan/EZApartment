@@ -1,0 +1,20 @@
+CREATE TABLE Apt_User (
+    ID int NOT NULL,
+    User_Name varchar(20) NOT NULL,
+    CONSTRAINT PK_Person PRIMARY KEY (ID)
+);
+
+CREATE TABLE Apt_Task (
+    ID int NOT NULL,
+    Task_Name varchar(20) NOT NULL,
+    CONSTRAINT PK_Task PRIMARY KEY (ID)
+);
+
+CREATE TABLE Apt_Work (
+    ID int NOT NULL,
+    User_ID int foreign key references Apt_User(ID),
+	Task_ID int foreign key references Apt_Task(ID),
+	Work_Date Date ,
+    CONSTRAINT PK_Work PRIMARY KEY (ID)
+);
+
