@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ApartmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Apt_Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Task_Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Apt_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="User_Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Apt_Work">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" />
+          <Property Name="Task_ID" Type="int" />
+          <Property Name="Work_Date" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Apartment.dbo.Work' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Work">
+          <Key>
+            <PropertyRef Name="Task_Name" />
+            <PropertyRef Name="User_Name" />
+          </Key>
+          <Property Name="Task_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Frequency" Type="int" />
+        </EntityType>
+        <Association Name="FK__Apt_Work__Task_I__45F365D3">
+          <End Role="Apt_Task" Type="Self.Apt_Task" Multiplicity="0..1" />
+          <End Role="Apt_Work" Type="Self.Apt_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apt_Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apt_Work">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Apt_Work__User_I__44FF419A">
+          <End Role="Apt_User" Type="Self.Apt_User" Multiplicity="0..1" />
+          <End Role="Apt_Work" Type="Self.Apt_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apt_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apt_Work">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApartmentModelStoreContainer">
+          <EntitySet Name="Apt_Task" EntityType="Self.Apt_Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apt_User" EntityType="Self.Apt_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apt_Work" EntityType="Self.Apt_Work" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work" EntityType="Self.Work" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Work].[Task_Name] AS [Task_Name], 
+    [Work].[User_Name] AS [User_Name], 
+    [Work].[Frequency] AS [Frequency]
+    FROM [dbo].[Work] AS [Work]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Apt_Work__Task_I__45F365D3" Association="Self.FK__Apt_Work__Task_I__45F365D3">
+            <End Role="Apt_Task" EntitySet="Apt_Task" />
+            <End Role="Apt_Work" EntitySet="Apt_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Apt_Work__User_I__44FF419A" Association="Self.FK__Apt_Work__User_I__44FF419A">
+            <End Role="Apt_User" EntitySet="Apt_User" />
+            <End Role="Apt_Work" EntitySet="Apt_Work" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApartmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Apt_Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Apt_Work" Relationship="Self.FK__Apt_Work__Task_I__3E52440B" FromRole="Apt_Task" ToRole="Apt_Work" />
+        </EntityType>
+        <EntityType Name="Apt_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="User_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Apt_Work" Relationship="Self.FK__Apt_Work__User_I__3D5E1FD2" FromRole="Apt_User" ToRole="Apt_Work" />
+        </EntityType>
+        <EntityType Name="Apt_Work">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Task_ID" Type="Int32" />
+          <Property Name="Work_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Apt_Task" Relationship="Self.FK__Apt_Work__Task_I__3E52440B" FromRole="Apt_Work" ToRole="Apt_Task" />
+          <NavigationProperty Name="Apt_User" Relationship="Self.FK__Apt_Work__User_I__3D5E1FD2" FromRole="Apt_Work" ToRole="Apt_User" />
+        </EntityType>
+        <Association Name="FK__Apt_Work__Task_I__3E52440B">
+          <End Role="Apt_Task" Type="Self.Apt_Task" Multiplicity="0..1" />
+          <End Role="Apt_Work" Type="Self.Apt_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apt_Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apt_Work">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Apt_Work__User_I__3D5E1FD2">
+          <End Role="Apt_User" Type="Self.Apt_User" Multiplicity="0..1" />
+          <End Role="Apt_Work" Type="Self.Apt_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apt_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apt_Work">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApartmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apt_Task" EntityType="Self.Apt_Task" />
+          <EntitySet Name="Apt_User" EntityType="Self.Apt_User" />
+          <EntitySet Name="Apt_Work" EntityType="Self.Apt_Work" />
+          <AssociationSet Name="FK__Apt_Work__Task_I__3E52440B" Association="Self.FK__Apt_Work__Task_I__3E52440B">
+            <End Role="Apt_Task" EntitySet="Apt_Task" />
+            <End Role="Apt_Work" EntitySet="Apt_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Apt_Work__User_I__3D5E1FD2" Association="Self.FK__Apt_Work__User_I__3D5E1FD2">
+            <End Role="Apt_User" EntitySet="Apt_User" />
+            <End Role="Apt_Work" EntitySet="Apt_Work" />
+          </AssociationSet>
+          <EntitySet Name="Works" EntityType="ApartmentModel.Work" />
+        </EntityContainer>
+        <EntityType Name="Work">
+          <Key>
+            <PropertyRef Name="Task_Name" />
+            <PropertyRef Name="User_Name" />
+          </Key>
+          <Property Name="Task_Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="User_Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Frequency" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApartmentModelStoreContainer" CdmEntityContainer="ApartmentEntities">
+          <EntitySetMapping Name="Apt_Task">
+            <EntityTypeMapping TypeName="ApartmentModel.Apt_Task">
+              <MappingFragment StoreEntitySet="Apt_Task">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apt_User">
+            <EntityTypeMapping TypeName="ApartmentModel.Apt_User">
+              <MappingFragment StoreEntitySet="Apt_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apt_Work">
+            <EntityTypeMapping TypeName="ApartmentModel.Apt_Work">
+              <MappingFragment StoreEntitySet="Apt_Work">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Work_Date" ColumnName="Work_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="ApartmentModel.Work">
+              <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

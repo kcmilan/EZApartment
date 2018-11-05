@@ -11,7 +11,7 @@ CREATE TABLE Apt_Task (
 );
 
 CREATE TABLE Apt_Work (
-    ID int NOT NULL,
+    ID int NOT NULL identity(1,1),
     User_ID int foreign key references Apt_User(ID),
 	Task_ID int foreign key references Apt_Task(ID),
 	Work_Date Date ,
