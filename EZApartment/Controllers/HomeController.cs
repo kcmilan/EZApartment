@@ -17,7 +17,17 @@ namespace EZApartment.Controllers
             ViewBag.apttasknames = new SelectList(aptDB.Apt_Task, "ID", "Task_Name");
 
             List < Work > works = aptDB.Works.ToList();
-            return View(works);
+
+            var analysislist = works.OrderByDescending(g => g.Frequency)
+                               .OrderBy(m => m.Task_Name)
+                               .ToList();
+
+            List<Apt_Work> logworks = aptDB.Apt_Work.ToList();
+
+            var loglist = logworks.OrderByDescending(g => g.Work_Date).ToList();
+
+            ViewBag.loglist = loglist;
+            return View(analysislist);
         }
 
         public JsonResult PostWork(AptWorkVM WorkJson)

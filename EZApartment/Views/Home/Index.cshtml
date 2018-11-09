@@ -13,6 +13,9 @@
 
 <div class="row">
     <div class="col-md-6">
+        <p>Please select your name and task done today</p>
+    </div>
+    <div class="col-md-6">
 
         <table class="table table-striped">
 
@@ -28,40 +31,76 @@
             </tr>
         </table>
     </div>
+    </div>
+<div class="row">
     <div class="col-md-6">
-        <div class="row">
-            <table class="table table-striped">
+        <h3>Overall Analysis</h3>
+        <table class="table table-striped">
 
-                <tr>
-                    <th scope="col">Task</th>
-                    <th scope="col">Person</th>
-                    <th scope="col">Frequency</th>
+            <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Person</th>
+                <th scope="col">Frequency</th>
 
-                </tr>
+            </tr>
 
-                @{
-                    int sn = 1;
+            @{
+                int sn = 1;
 
-                    foreach (var item in Model)
-                    {
+                foreach (var item in Model)
+                {
 
-                        <tr>
-                            <td>@Html.DisplayFor(x => item.Task_Name)</td>
-                            <td>@Html.DisplayFor(x => item.User_Name)</td>
-                            <td>@Html.DisplayFor(x => item.Frequency)</td>
+                    <tr>
+                        <td>@Html.DisplayFor(x => item.Task_Name)</td>
+                        <td>@Html.DisplayFor(x => item.User_Name)</td>
+                        <td>@Html.DisplayFor(x => item.Frequency)</td>
 
-                        </tr>
-                        sn = sn + 1;
+                    </tr>
+                    sn = sn + 1;
 
-                    }
                 }
+            }
 
-            </table>
-
-        </div>
+        </table>
 
     </div>
+
+    <div class="col-md-6">
+        <h3>Log</h3>
+        <table class="table table-striped">
+
+            <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Person</th>
+                <th scope="col">Frequency</th>
+
+            </tr>
+
+            @{
+               
+
+                foreach (var item in ViewBag.loglist)
+                {
+
+                    <tr>
+                        <td>@item.Work_Date</td>
+                        <td>@item.Apt_User</td>
+                    </tr>
+                 
+
+                }
+            }
+
+        </table>
+
     </div>
+
+</div>
+
+
+
+
+
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script>

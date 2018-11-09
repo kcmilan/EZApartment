@@ -187,6 +187,7 @@
     <Compile Include="Models\Work.cs">
       <DependentUpon>Apartment.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorkLogVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

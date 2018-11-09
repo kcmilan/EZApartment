@@ -18,3 +18,8 @@ CREATE TABLE Apt_Work (
     CONSTRAINT PK_Work PRIMARY KEY (ID)
 );
 
+Create view Work as 
+Select Task_Name, User_Name, count (Task_ID) as Frequency from Apt_Work 
+join Apt_User on Apt_User.ID = Apt_Work.User_ID
+join Apt_Task on Apt_Task.ID = Apt_Work.Task_ID
+group by User_ID,User_Name, Task_ID , Task_name ;
